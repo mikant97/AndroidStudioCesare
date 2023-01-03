@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             String criptata = criptaMetodo(app, -appNum);
             TextView risultato = (TextView) findViewById(R.id.textView3);
-            risultato.setText("DECriptata:\"" + criptata + "\"");
+            risultato.setText("DeCriptata:\"" + criptata + "\"");
         }
     }
 
@@ -80,12 +80,13 @@ public class MainActivity extends AppCompatActivity {
             if (app.charAt(i) > 64 && app.charAt(i) < 91) { maiuscola = true; }
             int c = app.charAt(i);
             if (!maiuscola) { c = c - 32; }
-            if ( c + appNum <= 90) {
+            if (( c + appNum <= 90) && (c + appNum >= 65)){
                c = c + appNum;
             }
             else
             {
-                c = (c + appNum) - 90 - 1;
+                if (c + appNum < 65) { c = c + Math.abs(appNum) - 90 + 1;}
+                else { c = c + Math.abs(appNum) - 90 - 1; }
                 c = 65 + c;
             }
             if (!maiuscola ) { c = c + 32; }
