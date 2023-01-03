@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Cifrario di Cesare</string>
+    <string name="codice_errato">Valore errato !!!</string>
+</resources>
