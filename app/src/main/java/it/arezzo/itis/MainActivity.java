@@ -18,6 +18,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Disattivo il pulsante Decripta
+        Button b2 = (Button) findViewById(R.id.button2);
+        b2.setEnabled(false);
+
+
+        EditText et0 = (EditText) findViewById(R.id.stringaDaCriptare);
+
+        et0.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Button b2 = (Button) findViewById(R.id.button2);
+                b2.setEnabled(false);
+                TextView risultato = (TextView) findViewById(R.id.textView3);
+                risultato.setText("DeCriptata:\"");
+            }
+        });
+
         // Controllo Input Valore Codice di Criptazione
         EditText et = (EditText) findViewById(R.id.editTextNumber);
         et.addTextChangedListener(new TextWatcher() {
@@ -39,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                Button b2 = (Button) findViewById(R.id.button2);
+                b2.setEnabled(false);
+                TextView risultato = (TextView) findViewById(R.id.textView3);
+                risultato.setText("DeCriptata:\"");
 
             }
         });
@@ -51,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         if (text.equals("CRIPTA!!!")) {
             EditText edit_stringa = (EditText) findViewById(R.id.stringaDaCriptare);
             app = edit_stringa.getText().toString();
+            if (app.isEmpty() || app == null) {
+                edit_stringa.setError("Inserire un valore");
+                return;
+            }
         }
         else
         {
@@ -60,7 +95,18 @@ public class MainActivity extends AppCompatActivity {
 
         }
         EditText edit_numero = (EditText)findViewById(R.id.editTextNumber);
-        int appNum = Integer.parseInt(edit_numero.getText().toString());
+        int appNum;
+        try {
+
+            appNum = Integer.parseInt(edit_numero.getText().toString());
+            Button b2 = (Button) findViewById(R.id.button2);
+            b2.setEnabled(true);
+        } catch (NumberFormatException e)
+        {
+            edit_numero.setError("Inserire un valore");
+            return;
+        }
+
         if (text.equals("CRIPTA!!!")) {
             String criptata = criptaMetodo(app, appNum);
             TextView risultato = (TextView) findViewById(R.id.textView2);
