@@ -126,14 +126,17 @@ public class MainActivity extends AppCompatActivity {
             if (app.charAt(i) > 64 && app.charAt(i) < 91) { maiuscola = true; }
             int c = app.charAt(i);
             if (!maiuscola) { c = c - 32; }
-            if (( c + appNum <= 90) && (c + appNum >= 65)){
-               c = c + appNum;
+            if (appNum > 0) {
+                c = c + appNum;
+                if (c > 90) {
+                    c = c - 26;
+                }
             }
-            else
-            {
-                if (c + appNum < 65) { c = c + Math.abs(appNum) - 90 + 1;}
-                else { c = c + Math.abs(appNum) - 90 - 1; }
-                c = 65 + c;
+            else {
+                c = c + appNum;
+                if (c < 65) {
+                    c = c + 26;
+                }
             }
             if (!maiuscola ) { c = c + 32; }
             s = s + (char) (c);
